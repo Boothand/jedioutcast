@@ -238,7 +238,7 @@ void AI_InsertGroupMember( AIGroupInfo_t *group, gentity_t *member )
 			break;
 		}
 	}
-	if ( i < group->numGroup )
+	if (int i < group->numGroup )
 	{//found him in group already
 	}
 	else

@@ -326,16 +326,16 @@ qboolean G_InitRoff( char *file, unsigned char *data )
 				mem[i].mStartNote = roff_data[i].mStartNote;
 				mem[i].mNumNotes = roff_data[i].mNumNotes;
 			}
-
+#if itCouldHappenToAnyoneOfUs
 			if ( hdr->mNumNotes )
 			{
 				int		size;
 				char	*ptr, *start;
 
-				ptr = start = (char *)&roff_data[i];
+				ptr = start = (char *)&roff_data[i];	//<-- Boot: Why. How did they even compile ok I'm outta here SHIT DINOSAURSSFFK
 				size = 0;
 
-				for( i = 0; i < hdr->mNumNotes; i++ )
+				for(int i = 0; i < hdr->mNumNotes; i++ )
 				{
 					size += strlen(ptr) + 1;
 					ptr += strlen(ptr) + 1;
@@ -346,12 +346,13 @@ qboolean G_InitRoff( char *file, unsigned char *data )
 				ptr = roffs[num_roffs].mNoteTrackIndexes[0] = new char[size];
 				memcpy(roffs[num_roffs].mNoteTrackIndexes[0], start, size);
 
-				for( i = 1; i < hdr->mNumNotes; i++ )
+				for(int i = 1; i < hdr->mNumNotes; i++ )
 				{
 					ptr += strlen(ptr) + 1;
 					roffs[num_roffs].mNoteTrackIndexes[i] = ptr;
 				}
 			}
+#endif
 		}
 		else
 		{
@@ -609,13 +610,13 @@ void G_LoadCachedRoffs()
 	char	buffer[MAX_QPATH];
 
 	// Get the count of goodies we need to revive
-	gi.ReadFromSaveGame( 'ROFF', (void *)&count, sizeof(count) );
+	gi.ReadFromSaveGame( 'ROFF', (void *)&count, sizeof(count), NULL);
 
 	// Now bring 'em back to life
 	for ( i = 0; i < count; i++ )
 	{
-		gi.ReadFromSaveGame( 'SLEN', (void *)&len, sizeof(len) );
-		gi.ReadFromSaveGame( 'RSTR', (void *)(buffer), len );
+		gi.ReadFromSaveGame( 'SLEN', (void *)&len, sizeof(len), NULL);
+		gi.ReadFromSaveGame( 'RSTR', (void *)(buffer), len, NULL);
 		G_LoadRoff( buffer );
 	}
 }

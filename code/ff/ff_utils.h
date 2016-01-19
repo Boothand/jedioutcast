@@ -97,7 +97,7 @@ public:
 		}
 		return *this;
 	}
-	qboolean operator != ( T::iterator it )
+	qboolean operator != ( T::iterator it )	//Boot: Not sure of operator overloading works.
 	{
 		return qboolean( mIt != it );
 	}

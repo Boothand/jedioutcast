@@ -38,7 +38,7 @@ static qboolean enemyLOS;
 static qboolean enemyCS;
 static qboolean hitAlly;
 static qboolean faceEnemy;
-static qboolean move;
+//static qboolean move;
 static qboolean shoot;
 static float	enemyDist;
 static vec3_t	impactPos;
